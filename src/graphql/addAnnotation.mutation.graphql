@@ -1,0 +1,50 @@
+mutation addAnnotation(
+  $bodyResource: BodyResourceInput
+  $bodyText: BodyTextInput
+  $targetResource: TargetResourceInput
+  $targetTextSelector: TargetTextSelectorInput
+  $targetFragmentSelector: TargetFragmentSelectorInput
+) {
+  addAnnotation(
+    bodyResource: $bodyResource
+    bodyText: $bodyText
+    targetResource: $targetResource
+    targetTextSelector: $targetTextSelector
+    targetFragmentSelector: $targetFragmentSelector
+  ) {
+    id
+    body {
+      ... on BodyResource {
+        id
+        type
+        label
+      }
+      ... on BodyText {
+        type
+        value
+      }
+    }
+    target {
+      ... on TargetResource {
+        id
+      }
+      ... on SpecificResource {
+        source
+        selector {
+          ... on FragmentSelector {
+            type
+            value
+          }
+          ... on TextPositionSelector {
+            start
+            end
+            type
+          }
+          ... on TextQuoteSelector {
+            exact
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+mutation deleteAnnotation($id: URL!) {
+  deleteAnnotation(id: $id)
+}

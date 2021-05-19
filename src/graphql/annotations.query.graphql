@@ -1,0 +1,35 @@
+query AnnotationList {
+  annotations {
+    id
+    body {
+      ... on BodyResource {
+        id
+        type
+        label
+      }
+      ... on BodyText {
+        type
+        value
+      }
+    }
+    target {
+      ... on TargetResource {
+        id
+      }
+      ... on SpecificResource {
+        source
+        selector {
+          ... on FragmentSelector {
+            type
+            value
+          }
+          ... on TextPositionSelector {
+            start
+            end
+            type
+          }
+        }
+      }
+    }
+  }
+}

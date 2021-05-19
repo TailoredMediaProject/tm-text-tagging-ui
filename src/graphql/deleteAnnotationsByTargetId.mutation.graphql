@@ -1,0 +1,3 @@
+mutation deleteAnnotationByTargetId($filter: Filter!) {
+  deleteAnnotations(filter: $filter)
+}
