@@ -2,13 +2,11 @@ import { Annotation, useAllAnnotationsQuery } from "@/graphql/graphql";
 import { computed, Ref } from "vue";
 import { useResult } from "@vue/apollo-composable";
 
-export default function useLoadAllAnnotations(
-  textId: string
-): {
+export default function useLoadAllAnnotations(textId: string): {
   fullTextAnnotations: Ref<Annotation[]>;
   specificTextAnnotations: Ref<Annotation[]>;
   loadingAnnotations: Ref<boolean>;
-  errorAnnotations: Ref<Error>;
+  errorAnnotations: Ref<Error | null>;
   refetchAnnotations: () => void;
 } {
   const filter = { targetId: textId };

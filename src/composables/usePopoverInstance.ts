@@ -1,4 +1,5 @@
-import { onUnmounted, Ref } from "vue";
+import { onMounted, onUnmounted, Ref } from "vue";
+import PopoverContent from "@/components/PopoverContent.vue";
 
 export default function usePopoverInstance(): {
   initialiseAnnotationPopover: (currentSelectedTextRange: Range) => void;
@@ -11,6 +12,24 @@ export default function usePopoverInstance(): {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bootstrap = (window as Window & typeof globalThis & { bootstrap: any })
     .bootstrap;
+
+  const showAnnotationPopover = (currentSelectedTextRange: Range) => {
+    hideAnnotationPopoverInstance();
+    currentSelectedTextRange = insertNodeInRange(currentSelectedTextRange);
+    initialiseAnnotationPopover(currentSelectedTextRange);
+  };
+
+  function insertNodeInRange(textRange: Range): Range {
+    selectedPopoverSpan = document.createElement("span");
+    selectedPopoverSpan.id = "selected-text-create-annotation";
+    selectedPopoverSpan.appendChild(textRange.extractContents());
+    textRange.insertNode(selectedPopoverSpan);
+    return textRange;
+  }
+
+  function initAnnotationPopover(currentSelectedTextRange: Range): void {
+    const allowList = { ...bootstrap.Tooltip.Default.allowList, input: ["*"] };
+  }
 
   const initialiseAnnotationPopover = (currentSelectedTextRange: Range) => {
     hideAnnotationPopoverInstance();
@@ -33,6 +52,8 @@ export default function usePopoverInstance(): {
       placement: "top",
       trigger: "manual",
       content() {
+        /*return "";*/
+        /*return PopoverContent;*/
         return document.querySelector("#PopoverContent")?.innerHTML;
       },
     });

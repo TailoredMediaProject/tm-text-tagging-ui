@@ -37,7 +37,14 @@
           </button>
         </div>
         <div
-          class="mb-3 d-flex flex-wrap align-items-baseline border border-end-0 border-start-0 p-2"
+          class="
+            mb-3
+            d-flex
+            flex-wrap
+            align-items-baseline
+            border border-end-0 border-start-0
+            p-2
+          "
         >
           <label for="fulltext" class="flex-shrink-0 me-1 mb-2"
             >Full-text annotations</label
@@ -123,28 +130,7 @@
   <!--  <Popover />-->
   <section>
     <div id="PopoverContent" class="d-none">
-      <div class="input-group">
-        <input
-          tabindex="0"
-          id="popoverInput"
-          type="text"
-          class="form-control"
-          placeholder="Add annotation"
-          aria-label="Adding specific text annotations"
-          aria-describedby="button-addAnnotation"
-          autocomplete="off"
-        />
-        <div class="input-group-append" id="button-addAnnotation">
-          <button
-            class="btn btn-outline-primary"
-            type="button"
-            id="popoverButton"
-            disabled
-          >
-            <i class="bi bi-check"></i>
-          </button>
-        </div>
-      </div>
+      <PopoverContent></PopoverContent>
     </div>
   </section>
 </template>
@@ -167,10 +153,12 @@ import AnnotationBadge from "@/components/AnnotationBadge.vue";
 import useTextSelectionViaPopover from "@/composables/useTextSelectionViaPopover";
 import useLoadAllAnnotations from "@/composables/useLoadAllAnnotations";
 import useDeleteAnnotation from "@/composables/useDeleteAnnotation";
+import PopoverContent from "@/components/PopoverContent.vue";
 
 export default defineComponent({
   name: "ResourceAnnotationMode",
   components: {
+    PopoverContent,
     Modal,
     AnnotationBadge,
   },
@@ -186,24 +174,13 @@ export default defineComponent({
       refetchAnnotations,
     } = useLoadAllAnnotations(params.id as string);
 
-    const {
-      text,
-      isLoadingGetText,
-      errorGetText,
-      refetchText,
-    } = useGetTextAnnotationMode(textDocsApi, params.id as string);
+    const { text, isLoadingGetText, errorGetText, refetchText } =
+      useGetTextAnnotationMode(textDocsApi, params.id as string);
 
-    const {
-      addSpecificTextAnnotation,
-      inputSpecificTextAnnotation,
-    } = useHandleSpecificTextAnnotations(
-      params.id as string,
-      refetchAnnotations
-    );
-    const {
-      inputFullTextAnnotation,
-      addFullTextAnnotation,
-    } = useHandleFullTextAnnotations(params.id as string, refetchAnnotations);
+    const { addSpecificTextAnnotation, inputSpecificTextAnnotation } =
+      useHandleSpecificTextAnnotations(params.id as string, refetchAnnotations);
+    const { inputFullTextAnnotation, addFullTextAnnotation } =
+      useHandleFullTextAnnotations(params.id as string, refetchAnnotations);
     const { deleteAnnotation } = useDeleteAnnotation(refetchAnnotations);
     const { deleteTextDocument } = useDeleteTextAnnotationMode(
       textDocsApi,
@@ -223,9 +200,9 @@ export default defineComponent({
 
     const getCorrespondingText = (annotation: Annotation) => {
       if (annotation && annotation.target) {
-        const textPositionSel = (annotation.target as SpecificResource).selector.filter(
-          (sel) => sel.__typename === "TextQuoteSelector"
-        );
+        const textPositionSel = (
+          annotation.target as SpecificResource
+        ).selector.filter((sel) => sel.__typename === "TextQuoteSelector");
         if (textPositionSel.length > 0) {
           return (textPositionSel[0] as TextQuoteSelector).exact || "";
         }
