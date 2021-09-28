@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  deployment:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,12 +32,6 @@ jobs:
 
       - name: Build Project
         run: npm run build
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
 
       - name: Build Docker Image
         run: docker build . --file Dockerfile --tag ghcr.io/tailoredmediaproject/tm-text-tagging-ui:latest
