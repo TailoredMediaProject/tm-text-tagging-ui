@@ -1,0 +1,43 @@
+
+name: tm-text-tagging-ui-workflow
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup NPM
+        uses: actions/setup-node@v2.4.1
+        with:
+          check-latest: true
+          node-version: '12.x'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate OpenAPI
+        run: npm run generate
+
+      - name: Build Project
+        run: npm run build
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build Docker Image
+        run: docker build . --file Dockerfile --tag ghcr.io/tailoredmediaproject/tm-text-tagging-ui:latest
