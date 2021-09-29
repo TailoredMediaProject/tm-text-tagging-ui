@@ -17,22 +17,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-java@v2
-        with:
-          distribution: 'adopt-hotspot'
-          java-version: '16'
 
       - name: Setup NPM
         uses: actions/setup-node@v2.4.1
         with:
           check-latest: true
           node-version: '12.x'
-
-      - name: Java Version
-        run: java --version
-
-      - name: Java Check
-        run: ls /usr/lib/jvm/
 
       - name: Build Docker Image
         run: docker build . --file Dockerfile --tag ghcr.io/tailoredmediaproject/tm-text-tagging-ui:latest
