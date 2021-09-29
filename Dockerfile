@@ -1,8 +1,10 @@
-FROM timbru31/java-node as build-stage
+FROM node:lts-alpine as build-stage
 
 WORKDIR /app
 
 COPY package*.json ./
+
+RUN apk add openjdk11
 
 RUN npm install
 
