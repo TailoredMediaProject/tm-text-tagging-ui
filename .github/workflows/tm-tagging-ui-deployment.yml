@@ -35,7 +35,7 @@ jobs:
         run: ls /usr/lib/jvm/
 
       - name: Bashrc check
-        run: cat .bashrc
+        run: cat etc/bash.bashrc
 
       - name: Change JAVA_HOME
         run: |
