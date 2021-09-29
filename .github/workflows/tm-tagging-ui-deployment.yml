@@ -34,5 +34,8 @@ jobs:
       - name: Java Check
         run: ls /usr/lib/jvm/
 
+      - name: Change JAVA_HOME
+        run: $JAVA_HOME=/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
+
       - name: Build Docker Image
         run: docker build . --file Dockerfile --tag ghcr.io/tailoredmediaproject/tm-text-tagging-ui:latest
