@@ -32,7 +32,7 @@ jobs:
         run: echo $JAVA_HOME
 
       - name: Java Check
-        run: ls /usr/lib/jvm/
+        run: ls /Library/Java/JavaVirtualMachines
 
 
       - name: Build Docker Image
