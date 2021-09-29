@@ -13,7 +13,7 @@ on:
 
 jobs:
   deployment:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -28,11 +28,18 @@ jobs:
           check-latest: true
           node-version: '12.x'
 
+      - name: Install and run Docker
+        run: |
+          brew install --cask docker virtualbox
+          brew install docker-machine
+          docker-machine create --driver virtualbox default
+          docker-machine restart
+          eval "$(docker-machine env default)"
+          docker-machine regenerate-certs default
+          docker-machine restart
+
       - name: Java Version
         run: java --version && javac --version
-
-      - name: Java Check
-        run: ls /usr/lib/jvm/
 
       - name: Build Docker Image
         run: docker build . --file Dockerfile --tag ghcr.io/tailoredmediaproject/tm-text-tagging-ui:latest
