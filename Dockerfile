@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN apk add openjdk11
+
 RUN npm run generate
 
 RUN npm run build
