@@ -34,6 +34,9 @@ jobs:
       - name: Java Check
         run: ls /usr/lib/jvm/
 
+      - name: Bashrc check
+        run: cat .bashrc
+
       - name: Change JAVA_HOME
         run: |
           export PATH=/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
