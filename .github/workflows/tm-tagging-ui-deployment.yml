@@ -13,7 +13,7 @@ on:
 
 jobs:
   deployment:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -28,15 +28,15 @@ jobs:
           check-latest: true
           node-version: '12.x'
 
-      - name: Install Docker
-        run: brew install docker-machine docker
-
       - name: Java Version
         run: echo $JAVA_HOME
 
       - name: Java Check
-        run: ls /Library/Java/JavaVirtualMachines
+        run: ls /usr/lib/jvm/
 
+      - name: Change JAVA_HOME
+        run: |
+          export PATH=/usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
 
       - name: Build Docker Image
         run: docker build . --file Dockerfile --tag ghcr.io/tailoredmediaproject/tm-text-tagging-ui:latest
