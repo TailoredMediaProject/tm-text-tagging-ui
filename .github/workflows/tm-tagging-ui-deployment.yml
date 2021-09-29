@@ -26,10 +26,10 @@ jobs:
         uses: actions/setup-node@v2.4.1
         with:
           check-latest: true
-          node-version: '12.x'
+          node-version: '16.x'
 
       - name: Java Version
-        run: java --version
+        run: echo $JAVA_HOME
 
       - name: Build Docker Image
         run: docker build . --file Dockerfile --tag ghcr.io/tailoredmediaproject/tm-text-tagging-ui:latest
