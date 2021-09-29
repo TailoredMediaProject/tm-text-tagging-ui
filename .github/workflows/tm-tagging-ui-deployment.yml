@@ -17,17 +17,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
 
       - name: Setup NPM
         uses: actions/setup-node@v2.4.1
         with:
           check-latest: true
           node-version: '12.x'
-          
-      - uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: '11'
 
       - name: Build Docker Image
         run: docker build . --file Dockerfile --tag ghcr.io/tailoredmediaproject/tm-text-tagging-ui:latest
