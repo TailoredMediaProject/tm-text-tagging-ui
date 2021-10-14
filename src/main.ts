@@ -4,7 +4,6 @@ import router from "./router";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { DefaultApolloClient } from "@vue/apollo-composable";
 import { Configuration, TextDocumentsApi } from "@/openapi";
-import { BASE_PATH } from "@/openapi/base";
 
 const defaultClient = new ApolloClient({
   uri: "/graphql",
@@ -20,6 +19,6 @@ const app = createApp({
 app.use(router).mount("#app");
 
 const textDocsApi = new TextDocumentsApi({
-  basePath: BASE_PATH,
+  basePath: "./resources",
 } as Configuration);
 app.provide("textDocAPIClient", textDocsApi);
