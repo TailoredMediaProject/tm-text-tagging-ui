@@ -5,7 +5,7 @@
     "version": "5.1.0",
     "generators": {
       "text-client": {
-        "glob": "./node_modules/@redlink/tm-annotation-store-api/api/doc/spec-1.2.0.yaml",
+        "glob": "./node_modules/@redlink/tm-annotation-store-api/api/resource/spec-1.3.0.yaml",
         "output": "./src/openapi",
         "generatorName": "typescript-axios",
         "additionalProperties": {

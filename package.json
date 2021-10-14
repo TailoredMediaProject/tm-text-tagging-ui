@@ -15,7 +15,7 @@
   "dependencies": {
     "@apollo/client": "^3.3.15",
     "@popperjs/core": "^2.9.2",
-    "@redlink/tm-annotation-store-api": "^1.1.1",
+    "@redlink/tm-annotation-store-api": "^2.0.6",
     "@vue/apollo-composable": "^4.0.0-alpha.12",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta3",
