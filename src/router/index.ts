@@ -10,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
     component: AnnotatedResources,
   },
   {
-    path: "/resource/:id",
+    path: "/:id",
     name: "Resource",
     component: ResourceAnnotationMode,
   },
